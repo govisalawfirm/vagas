@@ -151,7 +151,7 @@ nav {
   color: var(--blue); line-height: 1.1; margin-bottom: 56px;
 }
 
-.vagas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.vagas-grid { display: grid; grid-template-columns: minmax(300px, 520px); gap: 24px; justify-content: center; }
 
 .vaga-card {
   border: 1.5px solid var(--border);
@@ -365,7 +365,7 @@ footer {
 
   <div class="hero-stats">
     <div class="hero-stat">
-      <div class="hero-stat-n">2<span>+</span></div>
+      <div class="hero-stat-n">1<span>+</span></div>
       <div class="hero-stat-l">Vagas</div>
     </div>
     <div class="hero-stat">
@@ -382,7 +382,7 @@ footer {
 <!-- VAGAS -->
 <section class="vagas-section" id="vagas">
   <div class="sec-label">Posições abertas</div>
-  <div class="sec-title">Escolha sua vaga.</div>
+  <div class="sec-title">Vaga disponível.</div>
 
   <div class="vagas-grid">
 
@@ -415,34 +415,7 @@ footer {
       </div>
     </div>
 
-    <!-- SAC -->
-    <div class="vaga-card">
-      <div class="vaga-top red">
-        <div class="vaga-type">
-          <i data-lucide="map-pin" style="width:11px;height:11px"></i>
-          Home Office
-        </div>
-        <div>
-          <div class="vaga-nome">SAC</div>
-          <div class="vaga-role">Atendimento ao Cliente</div>
-        </div>
-        <div class="vaga-salario-block">
-          <div class="vaga-sal-num">R$ 3.500</div>
-          <div class="vaga-sal-label">/ mês fixo</div>
-        </div>
-      </div>
-      <div class="vaga-bottom">
-        <div class="bullets">
-          <div class="bullet"><div class="bullet-dot" style="background:var(--accent)"></div>Comunicação impecável, escrita e verbal</div>
-          <div class="bullet"><div class="bullet-dot" style="background:var(--accent)"></div>Experiência prévia em atendimento ao cliente</div>
-          <div class="bullet"><div class="bullet-dot" style="background:var(--accent)"></div>Empatia, profissionalismo e foco em resultado</div>
-        </div>
-        <button class="btn-candidatar red" onclick="abrirModal()">
-          <i data-lucide="send" style="width:15px;height:15px"></i>
-          Candidatar-se
-        </button>
-      </div>
-    </div>
+
 
   </div>
 </section>
@@ -481,7 +454,7 @@ footer {
         <select id="vaga" required>
           <option value="">Selecione...</option>
           <option value="Casa Manager (Home Office) – R$ 2.500/mês">Casa Manager – R$ 2.500/mês</option>
-          <option value="SAC – Atendimento ao Cliente (Home Office) – R$ 3.500/mês">SAC – R$ 3.500/mês</option>
+
         </select>
       </div>
 
