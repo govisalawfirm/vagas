@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vagas — Go Visa Law Firm</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue:    #0A2463;
+  --blue2:   #1B3A8A;
+  --accent:  #C41E2A;
+  --white:   #ffffff;
+  --off:     #F4F6FA;
+  --border:  #DDE3EF;
+  --txt:     #1A1A2E;
+  --muted:   #6B7A99;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--txt); overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 48px;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10,36,99,.97);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Montserrat', sans-serif; font-size: 15px;
+  color: #fff; letter-spacing: 1px; text-decoration: none;
+}
+.nav-logo svg { opacity: .7; }
+.nav-pill {
+  background: var(--accent); color: #fff;
+  font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 6px 16px; border-radius: 2px;
+  animation: blink 2.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.6} }
+
+/* ── HERO ── */
+.hero {
+  background: var(--blue);
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 100px 48px 80px;
+  position: relative; overflow: hidden;
+}
+
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.hero-glow {
+  position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none;
+}
+.hero-glow.g1 { width: 500px; height: 500px; top: -100px; right: -100px; background: rgba(196,30,42,.18); }
+.hero-glow.g2 { width: 300px; height: 300px; bottom: 0; left: -80px; background: rgba(27,58,138,.4); }
+
+.hero-inner {
+  max-width: 900px; width: 100%;
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid rgba(255,255,255,.2);
+  color: rgba(255,255,255,.6); font-size: 12px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 7px 16px; border-radius: 2px; margin-bottom: 40px;
+}
+.hero-tag span { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; flex-shrink: 0; animation: blink 1.8s infinite; }
+
+.hero h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(52px, 8vw, 96px);
+  color: #fff; line-height: 1; font-weight: 800;
+  margin-bottom: 28px;
+  animation: fadeUp .8s ease both;
+}
+.hero h1 em { color: rgba(255,255,255,.25); font-style: normal; }
+
+.hero-sub {
+  font-size: 18px; color: rgba(255,255,255,.5); font-weight: 400;
+  line-height: 1.7; max-width: 520px; margin-bottom: 52px;
+  animation: fadeUp 1s ease both;
+}
+.hero-sub strong { color: rgba(255,255,255,.85); font-weight: 600; }
+
+.hero-cta {
+  display: flex; align-items: center; gap: 20px;
+  animation: fadeUp 1.15s ease both;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--white); color: var(--blue);
+  font-size: 14px; font-weight: 700; letter-spacing: .5px;
+  padding: 14px 32px; border-radius: 3px; text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 20px rgba(0,0,0,.2);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.3); }
+
+.hero-note { font-size: 13px; color: rgba(255,255,255,.3); display: flex; align-items: center; gap: 6px; }
+
+.hero-stats {
+  position: absolute; bottom: 48px; right: 48px;
+  display: flex; gap: 0; z-index: 1;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 4px; overflow: hidden;
+}
+.hero-stat {
+  padding: 16px 28px; text-align: center;
+  border-right: 1px solid rgba(255,255,255,.1);
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat-n { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; color: #fff; line-height: 1; }
+.hero-stat-n span { color: var(--accent); }
+.hero-stat-l { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.3); margin-top: 4px; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+
+/* ── VAGAS ── */
+.vagas-section {
+  padding: 96px 48px;
+  max-width: 1080px; margin: 0 auto;
+}
+
+.sec-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+}
+.sec-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(32px, 5vw, 52px); font-weight: 800;
+  color: var(--blue); line-height: 1.1; margin-bottom: 56px;
+}
+
+.vagas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+.vaga-card {
+  border: 1.5px solid var(--border);
+  border-radius: 6px; overflow: hidden;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+  background: var(--white);
+}
+.vaga-card:hover { border-color: var(--blue2); box-shadow: 0 12px 48px rgba(10,36,99,.1); transform: translateY(-4px); }
+
+.vaga-top {
+  background: var(--blue); padding: 36px 36px 28px;
+  display: flex; flex-direction: column; gap: 16px;
+  position: relative; overflow: hidden;
+}
+.vaga-top.red { background: var(--accent); }
+
+.vaga-top::after {
+  content: ''; position: absolute;
+  right: -40px; bottom: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(255,255,255,.05);
+}
+
+.vaga-type {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.12); color: rgba(255,255,255,.7);
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 2px; width: fit-content;
+}
+
+.vaga-nome {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px; font-weight: 800; color: #fff; line-height: 1;
+}
+.vaga-role { font-size: 13px; color: rgba(255,255,255,.5); font-weight: 500; }
+
+.vaga-salario-block {
+  display: flex; align-items: baseline; gap: 4px;
+  border-top: 1px solid rgba(255,255,255,.12); padding-top: 20px;
+  margin-top: 4px;
+}
+.vaga-sal-num { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 800; color: #fff; }
+.vaga-sal-label { font-size: 13px; color: rgba(255,255,255,.4); font-weight: 500; }
+
+.vaga-bottom { padding: 28px 36px 32px; }
+
+.bullets { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.bullet {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px; color: var(--txt); font-weight: 500;
+}
+.bullet-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue); flex-shrink: 0;
+}
+.vaga-card .vaga-top.red ~ .vaga-bottom .bullet-dot { background: var(--accent); }
+
+.btn-candidatar {
+  width: 100%; padding: 14px; border: none; border-radius: 4px;
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700;
+  letter-spacing: .5px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: opacity .2s, transform .15s;
+}
+.btn-candidatar:hover { opacity: .9; transform: translateY(-1px); }
+.btn-candidatar.blue { background: var(--blue); color: #fff; }
+.btn-candidatar.red  { background: var(--accent); color: #fff; }
+
+/* ── BANNER ── */
+.banner {
+  background: var(--off); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 56px 48px;
+}
+.banner-inner {
+  max-width: 1080px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 40px;
+  flex-wrap: wrap;
+}
+.banner-text h3 {
+  font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800;
+  color: var(--blue); margin-bottom: 8px;
+}
+.banner-text p { font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 480px; }
+
+.banner-pills { display: flex; gap: 12px; flex-wrap: wrap; }
+.pill {
+  display: flex; align-items: center; gap: 8px;
+  background: #fff; border: 1.5px solid var(--border);
+  border-radius: 4px; padding: 12px 18px;
+  font-size: 13px; font-weight: 600; color: var(--blue);
+}
+.pill svg { color: var(--accent); }
+
+/* ── MODAL ── */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(10,36,99,.7); z-index: 200;
+  align-items: center; justify-content: center; padding: 20px;
+  backdrop-filter: blur(4px);
+}
+.overlay.active { display: flex; }
+
+.modal {
+  background: #fff; border-radius: 8px;
+  width: 100%; max-width: 560px; max-height: 92vh; overflow-y: auto;
+  position: relative; animation: modalIn .3s cubic-bezier(.22,1,.36,1) both;
+  border: 1.5px solid var(--border);
+}
+@keyframes modalIn { from{opacity:0;transform:translateY(24px) scale(.97)} to{opacity:1;transform:none} }
+
+.modal-top {
+  background: var(--blue); padding: 32px 36px 26px;
+  position: sticky; top: 0; z-index: 1;
+}
+.modal-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+.modal-title { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800; color: #fff; }
+.modal-sub { font-size: 13px; color: rgba(255,255,255,.45); margin-top: 4px; }
+
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(255,255,255,.1); border: none; border-radius: 4px;
+  width: 32px; height: 32px; cursor: pointer; color: rgba(255,255,255,.6);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s;
+}
+.modal-close:hover { background: rgba(255,255,255,.2); color: #fff; }
+
+.modal-body { padding: 28px 36px 36px; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+label { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: .5px; text-transform: uppercase; }
+
+input, select, textarea {
+  padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 4px;
+  font-family: 'Inter', sans-serif; font-size: 14px; color: var(--txt);
+  background: var(--off); transition: border-color .2s, background .2s; outline: none; width: 100%;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--blue); background: #fff; }
+textarea { resize: vertical; min-height: 100px; }
+
+.btn-enviar {
+  width: 100%; padding: 15px; background: #25D366; border: none; border-radius: 4px;
+  color: #fff; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: opacity .2s, transform .2s;
+  box-shadow: 0 4px 20px rgba(37,211,102,.3); margin-top: 4px;
+}
+.btn-enviar:hover { opacity: .92; transform: translateY(-2px); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--blue); padding: 36px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-brand { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: #fff; opacity: .5; }
+.footer-note { font-size: 12px; color: rgba(255,255,255,.25); }
+
+/* ── RESPONSIVE ── */
+@media(max-width: 768px) {
+  nav, .hero, .vagas-section, .banner, footer { padding-left: 24px; padding-right: 24px; }
+  .vagas-grid { grid-template-columns: 1fr; }
+  .hero-stats { display: none; }
+  .form-row { grid-template-columns: 1fr; }
+  .modal-body, .modal-top { padding-left: 22px; padding-right: 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <i data-lucide="scale" style="width:18px;height:18px"></i>
+    GO VISA LAW FIRM
+  </a>
+  <div class="nav-pill">Vagas Abertas</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow g1"></div>
+  <div class="hero-glow g2"></div>
+
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <span></span>
+      Início imediato · Vagas limitadas
+    </div>
+
+    <h1>Trabalhe<br><em>na</em> Go Visa.</h1>
+
+    <p class="hero-sub">
+      Estamos contratando para duas posições remotas. <strong>Home office, salário fixo</strong> e atuação direta com processos de imigração nos EUA.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#vagas" class="btn-primary">
+        Ver vagas disponíveis
+        <i data-lucide="arrow-down" style="width:16px;height:16px"></i>
+      </a>
+      <span class="hero-note">
+        <i data-lucide="clock" style="width:13px;height:13px"></i>
+        Resposta em até 48h
+      </span>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-n">2<span>+</span></div>
+      <div class="hero-stat-l">Vagas</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-n">100<span>%</span></div>
+      <div class="hero-stat-l">Remoto</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-n">48<span>h</span></div>
+      <div class="hero-stat-l">Resposta</div>
+    </div>
+  </div>
+</section>
+
+<!-- VAGAS -->
+<section class="vagas-section" id="vagas">
+  <div class="sec-label">Posições abertas</div>
+  <div class="sec-title">Escolha sua vaga.</div>
+
+  <div class="vagas-grid">
+
+    <!-- CASA MANAGER -->
+    <div class="vaga-card">
+      <div class="vaga-top">
+        <div class="vaga-type">
+          <i data-lucide="map-pin" style="width:11px;height:11px"></i>
+          Home Office
+        </div>
+        <div>
+          <div class="vaga-nome">Casa Manager</div>
+          <div class="vaga-role">Gestão de Casos Imigratórios</div>
+        </div>
+        <div class="vaga-salario-block">
+          <div class="vaga-sal-num">R$ 2.500</div>
+          <div class="vaga-sal-label">/ mês fixo</div>
+        </div>
+      </div>
+      <div class="vaga-bottom">
+        <div class="bullets">
+          <div class="bullet"><div class="bullet-dot"></div>Experiência com processos imigratórios obrigatória</div>
+          <div class="bullet"><div class="bullet-dot"></div>Organização e gestão de prazos com autonomia</div>
+          <div class="bullet"><div class="bullet-dot"></div>Comunicação direta com clientes e equipe</div>
+        </div>
+        <button class="btn-candidatar blue" onclick="abrirModal()">
+          <i data-lucide="send" style="width:15px;height:15px"></i>
+          Candidatar-se
+        </button>
+      </div>
+    </div>
+
+    <!-- SAC -->
+    <div class="vaga-card">
+      <div class="vaga-top red">
+        <div class="vaga-type">
+          <i data-lucide="map-pin" style="width:11px;height:11px"></i>
+          Home Office
+        </div>
+        <div>
+          <div class="vaga-nome">SAC</div>
+          <div class="vaga-role">Atendimento ao Cliente</div>
+        </div>
+        <div class="vaga-salario-block">
+          <div class="vaga-sal-num">R$ 3.500</div>
+          <div class="vaga-sal-label">/ mês fixo</div>
+        </div>
+      </div>
+      <div class="vaga-bottom">
+        <div class="bullets">
+          <div class="bullet"><div class="bullet-dot" style="background:var(--accent)"></div>Comunicação impecável, escrita e verbal</div>
+          <div class="bullet"><div class="bullet-dot" style="background:var(--accent)"></div>Experiência prévia em atendimento ao cliente</div>
+          <div class="bullet"><div class="bullet-dot" style="background:var(--accent)"></div>Empatia, profissionalismo e foco em resultado</div>
+        </div>
+        <button class="btn-candidatar red" onclick="abrirModal()">
+          <i data-lucide="send" style="width:15px;height:15px"></i>
+          Candidatar-se
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner">
+  <div class="banner-inner">
+    <div class="banner-text">
+      <h3>Por que a Go Visa?</h3>
+      <p>Empresa em expansão nos EUA. Time enxuto, decisões rápidas e espaço real para crescer.</p>
+    </div>
+    <div class="banner-pills">
+      <div class="pill"><i data-lucide="home" style="width:15px;height:15px"></i> 100% Remoto</div>
+      <div class="pill"><i data-lucide="trending-up" style="width:15px;height:15px"></i> Crescimento real</div>
+      <div class="pill"><i data-lucide="shield-check" style="width:15px;height:15px"></i> Pagamento em dia</div>
+      <div class="pill"><i data-lucide="zap" style="width:15px;height:15px"></i> Início imediato</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="fecharModalFora(event)">
+  <div class="modal">
+    <div class="modal-top">
+      <div class="modal-eyebrow">Candidatura — Go Visa Law Firm</div>
+      <div class="modal-title">Envie sua candidatura</div>
+      <div class="modal-sub">Preencha os dados abaixo. Você será direcionado ao WhatsApp.</div>
+      <button class="modal-close" onclick="fecharModal()">
+        <i data-lucide="x" style="width:15px;height:15px"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label>Vaga de interesse</label>
+        <select id="vaga" required>
+          <option value="">Selecione...</option>
+          <option value="Casa Manager (Home Office) – R$ 2.500/mês">Casa Manager – R$ 2.500/mês</option>
+          <option value="SAC – Atendimento ao Cliente (Home Office) – R$ 3.500/mês">SAC – R$ 3.500/mês</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input type="text" id="nome" placeholder="Seu nome" required>
+        </div>
+        <div class="form-group">
+          <label>WhatsApp</label>
+          <input type="tel" id="whatsapp" placeholder="+55 (67) 9 9999-9999" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="email" id="email" placeholder="seu@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Cidade / Estado</label>
+          <input type="text" id="cidade" placeholder="Ex: Campo Grande, MS" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Experiência relevante</label>
+        <textarea id="experiencia" placeholder="Descreva sua experiência para essa vaga..." required></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Disponibilidade</label>
+          <select id="disponibilidade" required>
+            <option value="">Selecione...</option>
+            <option value="Imediata">Imediata</option>
+            <option value="Em até 1 semana">Em até 1 semana</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>LinkedIn (opcional)</label>
+          <input type="url" id="linkedin" placeholder="linkedin.com/in/...">
+        </div>
+      </div>
+
+      <button class="btn-enviar" onclick="enviarWhatsApp()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.557 4.126 1.527 5.858L0 24l6.335-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.371l-.36-.214-3.727.974 1.001-3.64-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
+        Enviar pelo WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">GO VISA LAW FIRM</div>
+  <div class="footer-note">Processo seletivo 100% online · Início imediato · 2026</div>
+</footer>
+
+<script>
+lucide.createIcons();
+
+const WHATSAPP_RH = '5567981082158';
+
+function abrirModal() {
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function fecharModal() {
+  document.getElementById('overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function fecharModalFora(e) {
+  if (e.target === document.getElementById('overlay')) fecharModal();
+}
+
+function enviarWhatsApp() {
+  const vaga            = document.getElementById('vaga').value;
+  const nome            = document.getElementById('nome').value.trim();
+  const whatsapp        = document.getElementById('whatsapp').value.trim();
+  const email           = document.getElementById('email').value.trim();
+  const cidade          = document.getElementById('cidade').value.trim();
+  const experiencia     = document.getElementById('experiencia').value.trim();
+  const disponibilidade = document.getElementById('disponibilidade').value;
+  const linkedin        = document.getElementById('linkedin').value.trim();
+
+  if (!vaga || !nome || !whatsapp || !email || !cidade || !experiencia || !disponibilidade) {
+    alert('Por favor, preencha todos os campos obrigatórios.');
+    return;
+  }
+
+  const msg =
+`*NOVA CANDIDATURA — Go Visa Law Firm*
+
+*Vaga:* ${vaga}
+
+*Nome:* ${nome}
+*WhatsApp:* ${whatsapp}
+*E-mail:* ${email}
+*Cidade:* ${cidade}
+*Disponibilidade:* ${disponibilidade}
+
+*Experiência:*
+${experiencia}${linkedin ? `\n\n*LinkedIn:* ${linkedin}` : ''}
+
+_Enviado via página de vagas da Go Visa_`;
+
+  window.open(`https://wa.me/${WHATSAPP_RH}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+document.querySelector('.btn-primary').addEventListener('click', function(e) {
+  e.preventDefault();
+  document.getElementById('vagas').scrollIntoView({ behavior: 'smooth' });
+});
+</script>
+</body>
+</html>
